@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 6.0.0-dev+20230913.67dcd7ae1d
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15-Sep-2023 às 15:57
+-- Tempo de geração: 18-Set-2023 às 04:26
 -- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.4
+-- versão do PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -51,6 +51,25 @@ CREATE TABLE `avaliacao` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `cargo`
+--
+
+CREATE TABLE `cargo` (
+  `ID_carco` int(11) NOT NULL,
+  `cargo` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `cargo`
+--
+
+INSERT INTO `cargo` (`ID_carco`, `cargo`) VALUES
+(1, 'usuario'),
+(2, 'vendedor');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `categoria`
 --
 
@@ -80,7 +99,7 @@ CREATE TABLE `contato` (
   `ID_contato` int(11) NOT NULL,
   `ID_usuario` int(11) NOT NULL,
   `tel_fixo` varchar(15) DEFAULT NULL,
-  `tel_celular` varchar(15) NOT NULL
+  `tel_celular` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -107,6 +126,21 @@ CREATE TABLE `endereco` (
 --
 
 CREATE TABLE `imagens` (
+  `ID_img` int(11) NOT NULL,
+  `ID_user` int(11) NOT NULL,
+  `nome_imagem` varchar(25) NOT NULL,
+  `tamanho_imagem` varchar(25) NOT NULL,
+  `tipo_imagem` varchar(10) NOT NULL,
+  `caminho_imagem` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `imagens_prod`
+--
+
+CREATE TABLE `imagens_prod` (
   `ID_img` int(11) NOT NULL,
   `ID_prod` int(11) NOT NULL,
   `nome_imagem` varchar(25) NOT NULL,
@@ -193,7 +227,8 @@ CREATE TABLE `usuario` (
   `sobrenome` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `CPF` varchar(14) NOT NULL
+  `CPF` varchar(14) NOT NULL,
+  `cargo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -215,6 +250,12 @@ ALTER TABLE `avaliacao`
   ADD PRIMARY KEY (`ID_avaliacao`),
   ADD KEY `FK_IDusuario_avaliacao` (`ID_usuario`),
   ADD KEY `FK_IDproduto_avaliacao` (`ID_prod`);
+
+--
+-- Índices para tabela `cargo`
+--
+ALTER TABLE `cargo`
+  ADD PRIMARY KEY (`ID_carco`);
 
 --
 -- Índices para tabela `categoria`
@@ -240,7 +281,14 @@ ALTER TABLE `endereco`
 --
 ALTER TABLE `imagens`
   ADD PRIMARY KEY (`ID_img`),
-  ADD KEY `FK_IDproduto` (`ID_prod`);
+  ADD KEY `FK_IDuser` (`ID_user`);
+
+--
+-- Índices para tabela `imagens_prod`
+--
+ALTER TABLE `imagens_prod`
+  ADD PRIMARY KEY (`ID_img`),
+  ADD KEY `FK_IDimg_prod` (`ID_prod`);
 
 --
 -- Índices para tabela `pedido`
@@ -303,6 +351,12 @@ ALTER TABLE `avaliacao`
   MODIFY `ID_avaliacao` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `cargo`
+--
+ALTER TABLE `cargo`
+  MODIFY `ID_carco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
@@ -327,6 +381,12 @@ ALTER TABLE `imagens`
   MODIFY `ID_img` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `imagens_prod`
+--
+ALTER TABLE `imagens_prod`
+  MODIFY `ID_img` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `pedido`
 --
 ALTER TABLE `pedido`
@@ -342,7 +402,7 @@ ALTER TABLE `pedido_prod`
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `ID_prod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `ID_prod` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `recibo`
@@ -360,7 +420,7 @@ ALTER TABLE `user_ender`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ID_usuario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para despejos de tabelas
@@ -390,7 +450,13 @@ ALTER TABLE `contato`
 -- Limitadores para a tabela `imagens`
 --
 ALTER TABLE `imagens`
-  ADD CONSTRAINT `FK_IDproduto` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`);
+  ADD CONSTRAINT `FK_IDuser` FOREIGN KEY (`ID_user`) REFERENCES `usuario` (`ID_usuario`);
+
+--
+-- Limitadores para a tabela `imagens_prod`
+--
+ALTER TABLE `imagens_prod`
+  ADD CONSTRAINT `FK_IDimg_prod` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`);
 
 --
 -- Limitadores para a tabela `pedido`
