@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `tcc_concicle`
 --
-
+  CREATE DATABASE tcc_concicle;
+  USE tcc_concicle;
 -- --------------------------------------------------------
 
 --
