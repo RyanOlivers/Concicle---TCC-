@@ -112,6 +112,7 @@ CREATE TABLE `contato` (
   `ID_contato` int(11) NOT NULL,
   `ID_usuario` int(11) NOT NULL,
   `tel_fixo` varchar(15) DEFAULT NULL,
+  `DDD` varchar(2) DEFAULT NULL,
   `tel_celular` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
