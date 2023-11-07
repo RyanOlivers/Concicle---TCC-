@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Out-2023 às 00:55
+-- Tempo de geração: 07-Nov-2023 às 10:20
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 8.1.6
 
@@ -20,8 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `tcc_concicle`
 --
-  CREATE DATABASE tcc_concicle;
-  USE tcc_concicle;
+
 -- --------------------------------------------------------
 
 --
@@ -77,7 +76,8 @@ INSERT INTO `cargo` (`ID_carco`, `cargo`) VALUES
 CREATE TABLE `carrinho_prod` (
   `ID_carrinho` int(11) NOT NULL,
   `ID_usuario` int(11) NOT NULL,
-  `ID_prod` int(11) NOT NULL
+  `ID_prod` int(11) NOT NULL,
+  `qtd` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
