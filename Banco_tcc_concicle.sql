@@ -525,7 +525,47 @@ ALTER TABLE `recibo`
 --
 ALTER TABLE `user_ender`
   ADD CONSTRAINT `FK_IDendereco_user` FOREIGN KEY (`ID_endereco`) REFERENCES `endereco` (`ID_endereco`),
-  ADD CONSTRAINT `FK_IDusuario_ender` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
+   ADD CONSTRAINT `FK_IDusuario_ender` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
+
+--
+-- NOVA TABELA E RELAÇÃO
+--
+
+CREATE TABLE `favoritar` (
+  `ID_fav` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL,
+  `fav_valor` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `favoritar`
+  ADD PRIMARY KEY (`ID_fav`),
+  ADD KEY `FK_IDproduto` (`ID_prod`);
+  
+  ALTER TABLE `favoritar`
+  MODIFY `ID_fav` int(11) NOT NULL AUTO_INCREMENT;
+  
+  ALTER TABLE `favoritar`
+  ADD CONSTRAINT `FK_IDfavoritar` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`);
+
+
+CREATE TABLE `fav_user` (
+  `ID_fav_user` int(11) NOT NULL,	
+  `ID_fav` int(11) NOT NULL,
+  `ID_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+ALTER TABLE `fav_user`
+  ADD PRIMARY KEY (`ID_fav_user`),
+  ADD KEY `FK_IDfavoritar` (`ID_fav`),
+  ADD KEY `FK_IDusuario` (`ID_user`);
+
+ALTER TABLE `fav_user`
+  MODIFY `ID_fav_user` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `fav_user`
+  ADD CONSTRAINT `FK_IDfav_user` FOREIGN KEY (`ID_fav`) REFERENCES `favoritar` (`ID_fav`),
+  ADD CONSTRAINT `FK_IDusuario_fav` FOREIGN KEY (`ID_user`) REFERENCES `usuario` (`ID_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
