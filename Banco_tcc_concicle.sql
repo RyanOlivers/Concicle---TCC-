@@ -116,12 +116,6 @@ CREATE TABLE `contato` (
   `tel_celular` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Extraindo dados da tabela `contato`
---
-
-INSERT INTO `contato` (`ID_contato`, `ID_usuario`, `tel_fixo`, `DDD`, `tel_celular`) VALUES
-(1, 1, '', '11', '972742525');
 
 -- --------------------------------------------------------
 
@@ -140,12 +134,6 @@ CREATE TABLE `endereco` (
   `complemento` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Extraindo dados da tabela `endereco`
---
-
-INSERT INTO `endereco` (`ID_endereco`, `CEP`, `UF`, `rua`, `bairro`, `cidade`, `num_casa`, `complemento`) VALUES
-(1, '06132020', 'SP', 'Rua Genésio Resende', 'Santo Antônio', 'Osasco', 50, 'A');
 
 -- --------------------------------------------------------
 
@@ -186,12 +174,6 @@ CREATE TABLE `imagens` (
   `caminho_imagem` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Extraindo dados da tabela `imagens`
---
-
-INSERT INTO `imagens` (`ID_img`, `ID_user`, `nome_imagem`, `tamanho_imagem`, `tipo_imagem`, `caminho_imagem`) VALUES
-(1, 1, 'Admin1', '1475650', '.jpg', 'uploads/Admin10.jpg');
 
 -- --------------------------------------------------------
 
@@ -279,8 +261,6 @@ CREATE TABLE `user_ender` (
 -- Extraindo dados da tabela `user_ender`
 --
 
-INSERT INTO `user_ender` (`ID_userEnder`, `ID_usuario`, `ID_endereco`) VALUES
-(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -297,13 +277,6 @@ CREATE TABLE `usuario` (
   `CPF` varchar(14) NOT NULL,
   `cargo` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `usuario`
---
-
-INSERT INTO `usuario` (`ID_usuario`, `nome`, `sobrenome`, `senha`, `email`, `CPF`, `cargo`) VALUES
-(1, 'Admin', 'Concile', '$2y$10$l8M.MtiI7CAAR0AKqSTbReIY4H1mvkLdtjMNGgnIIL8nYID7b59Ke', 'tccconcicleinfo@gmail.com', '51881238865', 1);
 
 --
 -- Índices para tabelas despejadas
