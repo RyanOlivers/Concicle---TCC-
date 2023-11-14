@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Nov-2023 às 10:20
--- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.6
+-- Tempo de geração: 14-Nov-2023 às 13:42
+-- Versão do servidor: 8.0.32
+-- versão do PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `anunciar` (
-  `ID_anunciar` int(11) NOT NULL,
-  `ID_prod` int(11) NOT NULL,
-  `ID_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ID_anunciar` int NOT NULL,
+  `ID_prod` int NOT NULL,
+  `ID_usuario` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -40,13 +40,13 @@ CREATE TABLE `anunciar` (
 --
 
 CREATE TABLE `avaliacao` (
-  `ID_avaliacao` int(11) NOT NULL,
-  `ID_usuario` int(11) NOT NULL,
-  `ID_prod` int(11) NOT NULL,
+  `ID_avaliacao` int NOT NULL,
+  `ID_usuario` int NOT NULL,
+  `ID_prod` int NOT NULL,
   `data_av` date NOT NULL,
   `hora_av` time NOT NULL,
   `comentario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -55,9 +55,9 @@ CREATE TABLE `avaliacao` (
 --
 
 CREATE TABLE `cargo` (
-  `ID_carco` int(11) NOT NULL,
+  `ID_carco` int NOT NULL,
   `cargo` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `cargo`
@@ -74,11 +74,11 @@ INSERT INTO `cargo` (`ID_carco`, `cargo`) VALUES
 --
 
 CREATE TABLE `carrinho_prod` (
-  `ID_carrinho` int(11) NOT NULL,
-  `ID_usuario` int(11) NOT NULL,
-  `ID_prod` int(11) NOT NULL,
-  `qtd` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ID_carrinho` int NOT NULL,
+  `ID_usuario` int NOT NULL,
+  `ID_prod` int NOT NULL,
+  `qtd` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -87,9 +87,9 @@ CREATE TABLE `carrinho_prod` (
 --
 
 CREATE TABLE `categoria` (
-  `ID_categ` int(11) NOT NULL,
+  `ID_categ` int NOT NULL,
   `Nome_categ` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `categoria`
@@ -109,12 +109,19 @@ INSERT INTO `categoria` (`ID_categ`, `Nome_categ`) VALUES
 --
 
 CREATE TABLE `contato` (
-  `ID_contato` int(11) NOT NULL,
-  `ID_usuario` int(11) NOT NULL,
+  `ID_contato` int NOT NULL,
+  `ID_usuario` int NOT NULL,
   `tel_fixo` varchar(15) DEFAULT NULL,
   `DDD` varchar(2) DEFAULT NULL,
   `tel_celular` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `contato`
+--
+
+INSERT INTO `contato` (`ID_contato`, `ID_usuario`, `tel_fixo`, `DDD`, `tel_celular`) VALUES
+(1, 1, '', '11', '972742525');
 
 -- --------------------------------------------------------
 
@@ -123,15 +130,46 @@ CREATE TABLE `contato` (
 --
 
 CREATE TABLE `endereco` (
-  `ID_endereco` int(11) NOT NULL,
+  `ID_endereco` int NOT NULL,
   `CEP` varchar(10) NOT NULL,
   `UF` varchar(2) NOT NULL,
   `rua` varchar(255) NOT NULL,
   `bairro` varchar(255) NOT NULL,
   `cidade` varchar(255) NOT NULL,
-  `num_casa` int(5) NOT NULL,
+  `num_casa` int NOT NULL,
   `complemento` varchar(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `endereco`
+--
+
+INSERT INTO `endereco` (`ID_endereco`, `CEP`, `UF`, `rua`, `bairro`, `cidade`, `num_casa`, `complemento`) VALUES
+(1, '06132020', 'SP', 'Rua Genésio Resende', 'Santo Antônio', 'Osasco', 50, 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `favoritar`
+--
+
+CREATE TABLE `favoritar` (
+  `ID_fav` int NOT NULL,
+  `ID_prod` int NOT NULL,
+  `fav_valor` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `fav_user`
+--
+
+CREATE TABLE `fav_user` (
+  `ID_fav_user` int NOT NULL,
+  `ID_fav` int NOT NULL,
+  `ID_user` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -140,13 +178,20 @@ CREATE TABLE `endereco` (
 --
 
 CREATE TABLE `imagens` (
-  `ID_img` int(11) NOT NULL,
-  `ID_user` int(11) NOT NULL,
+  `ID_img` int NOT NULL,
+  `ID_user` int NOT NULL,
   `nome_imagem` varchar(25) NOT NULL,
   `tamanho_imagem` varchar(25) NOT NULL,
   `tipo_imagem` varchar(10) NOT NULL,
   `caminho_imagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `imagens`
+--
+
+INSERT INTO `imagens` (`ID_img`, `ID_user`, `nome_imagem`, `tamanho_imagem`, `tipo_imagem`, `caminho_imagem`) VALUES
+(1, 1, 'Admin1', '1475650', '.jpg', 'uploads/Admin10.jpg');
 
 -- --------------------------------------------------------
 
@@ -155,13 +200,13 @@ CREATE TABLE `imagens` (
 --
 
 CREATE TABLE `imagens_prod` (
-  `ID_img` int(11) NOT NULL,
-  `ID_prod` int(11) NOT NULL,
+  `ID_img` int NOT NULL,
+  `ID_prod` int NOT NULL,
   `nome_imagem` varchar(25) NOT NULL,
   `tamanho_imagem` varchar(25) NOT NULL,
   `tipo_imagem` varchar(10) NOT NULL,
   `caminho_imagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -170,13 +215,13 @@ CREATE TABLE `imagens_prod` (
 --
 
 CREATE TABLE `pedido` (
-  `ID_pedido` int(11) NOT NULL,
-  `ID_userEnder` int(11) NOT NULL,
+  `ID_pedido` int NOT NULL,
+  `ID_userEnder` int NOT NULL,
   `preco` decimal(10,2) NOT NULL,
   `status_pedido` varchar(15) NOT NULL,
   `data_emissao` date NOT NULL,
   `data_entrega` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -185,10 +230,10 @@ CREATE TABLE `pedido` (
 --
 
 CREATE TABLE `pedido_prod` (
-  `ID_pedidoProd` int(11) NOT NULL,
-  `ID_pedido` int(11) NOT NULL,
-  `ID_prod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ID_pedidoProd` int NOT NULL,
+  `ID_pedido` int NOT NULL,
+  `ID_prod` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -197,15 +242,15 @@ CREATE TABLE `pedido_prod` (
 --
 
 CREATE TABLE `produto` (
-  `ID_prod` int(11) NOT NULL,
-  `ID_categ` int(11) NOT NULL,
-  `ID_usuario` int(11) NOT NULL,
-  `quantidade` int(5) NOT NULL,
+  `ID_prod` int NOT NULL,
+  `ID_categ` int NOT NULL,
+  `ID_usuario` int NOT NULL,
+  `quantidade` int NOT NULL,
   `preco` decimal(10,2) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `descricao` varchar(1000) NOT NULL,
-  `ativo` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ativo` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -214,9 +259,9 @@ CREATE TABLE `produto` (
 --
 
 CREATE TABLE `recibo` (
-  `ID_recibo` int(11) NOT NULL,
-  `ID_pedido` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ID_recibo` int NOT NULL,
+  `ID_pedido` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -225,10 +270,17 @@ CREATE TABLE `recibo` (
 --
 
 CREATE TABLE `user_ender` (
-  `ID_userEnder` int(11) NOT NULL,
-  `ID_usuario` int(11) NOT NULL,
-  `ID_endereco` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `ID_userEnder` int NOT NULL,
+  `ID_usuario` int NOT NULL,
+  `ID_endereco` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `user_ender`
+--
+
+INSERT INTO `user_ender` (`ID_userEnder`, `ID_usuario`, `ID_endereco`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -237,14 +289,21 @@ CREATE TABLE `user_ender` (
 --
 
 CREATE TABLE `usuario` (
-  `ID_usuario` int(11) NOT NULL,
+  `ID_usuario` int NOT NULL,
   `nome` varchar(255) NOT NULL,
   `sobrenome` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `CPF` varchar(14) NOT NULL,
-  `cargo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `cargo` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`ID_usuario`, `nome`, `sobrenome`, `senha`, `email`, `CPF`, `cargo`) VALUES
+(1, 'Admin', 'Concile', '$2y$10$l8M.MtiI7CAAR0AKqSTbReIY4H1mvkLdtjMNGgnIIL8nYID7b59Ke', 'tccconcicleinfo@gmail.com', '51881238865', 1);
 
 --
 -- Índices para tabelas despejadas
@@ -298,6 +357,21 @@ ALTER TABLE `contato`
 --
 ALTER TABLE `endereco`
   ADD PRIMARY KEY (`ID_endereco`);
+
+--
+-- Índices para tabela `favoritar`
+--
+ALTER TABLE `favoritar`
+  ADD PRIMARY KEY (`ID_fav`),
+  ADD KEY `FK_IDproduto` (`ID_prod`);
+
+--
+-- Índices para tabela `fav_user`
+--
+ALTER TABLE `fav_user`
+  ADD PRIMARY KEY (`ID_fav_user`),
+  ADD KEY `FK_IDfavoritar` (`ID_fav`),
+  ADD KEY `FK_IDusuario` (`ID_user`);
 
 --
 -- Índices para tabela `imagens`
@@ -365,91 +439,103 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `anunciar`
 --
 ALTER TABLE `anunciar`
-  MODIFY `ID_anunciar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_anunciar` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  MODIFY `ID_avaliacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_avaliacao` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `cargo`
 --
 ALTER TABLE `cargo`
-  MODIFY `ID_carco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_carco` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `carrinho_prod`
 --
 ALTER TABLE `carrinho_prod`
-  MODIFY `ID_carrinho` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_carrinho` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `ID_categ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_categ` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `contato`
 --
 ALTER TABLE `contato`
-  MODIFY `ID_contato` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_contato` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `ID_endereco` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_endereco` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `favoritar`
+--
+ALTER TABLE `favoritar`
+  MODIFY `ID_fav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `fav_user`
+--
+ALTER TABLE `fav_user`
+  MODIFY `ID_fav_user` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `imagens`
 --
 ALTER TABLE `imagens`
-  MODIFY `ID_img` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_img` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `imagens_prod`
 --
 ALTER TABLE `imagens_prod`
-  MODIFY `ID_img` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_img` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `ID_pedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_pedido` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `pedido_prod`
 --
 ALTER TABLE `pedido_prod`
-  MODIFY `ID_pedidoProd` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_pedidoProd` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `ID_prod` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_prod` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `recibo`
 --
 ALTER TABLE `recibo`
-  MODIFY `ID_recibo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_recibo` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `user_ender`
 --
 ALTER TABLE `user_ender`
-  MODIFY `ID_userEnder` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_userEnder` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
@@ -481,6 +567,19 @@ ALTER TABLE `carrinho_prod`
 --
 ALTER TABLE `contato`
   ADD CONSTRAINT `FK_IDusuario_contato` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
+
+--
+-- Limitadores para a tabela `favoritar`
+--
+ALTER TABLE `favoritar`
+  ADD CONSTRAINT `FK_IDfavoritar` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`);
+
+--
+-- Limitadores para a tabela `fav_user`
+--
+ALTER TABLE `fav_user`
+  ADD CONSTRAINT `FK_IDfav_user` FOREIGN KEY (`ID_fav`) REFERENCES `favoritar` (`ID_fav`),
+  ADD CONSTRAINT `FK_IDusuario_fav` FOREIGN KEY (`ID_user`) REFERENCES `usuario` (`ID_usuario`);
 
 --
 -- Limitadores para a tabela `imagens`
@@ -525,47 +624,7 @@ ALTER TABLE `recibo`
 --
 ALTER TABLE `user_ender`
   ADD CONSTRAINT `FK_IDendereco_user` FOREIGN KEY (`ID_endereco`) REFERENCES `endereco` (`ID_endereco`),
-   ADD CONSTRAINT `FK_IDusuario_ender` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
-
---
--- NOVA TABELA E RELAÇÃO
---
-
-CREATE TABLE `favoritar` (
-  `ID_fav` int(11) NOT NULL,
-  `ID_prod` int(11) NOT NULL,
-  `fav_valor` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-ALTER TABLE `favoritar`
-  ADD PRIMARY KEY (`ID_fav`),
-  ADD KEY `FK_IDproduto` (`ID_prod`);
-  
-  ALTER TABLE `favoritar`
-  MODIFY `ID_fav` int(11) NOT NULL AUTO_INCREMENT;
-  
-  ALTER TABLE `favoritar`
-  ADD CONSTRAINT `FK_IDfavoritar` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`);
-
-
-CREATE TABLE `fav_user` (
-  `ID_fav_user` int(11) NOT NULL,	
-  `ID_fav` int(11) NOT NULL,
-  `ID_user` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-ALTER TABLE `fav_user`
-  ADD PRIMARY KEY (`ID_fav_user`),
-  ADD KEY `FK_IDfavoritar` (`ID_fav`),
-  ADD KEY `FK_IDusuario` (`ID_user`);
-
-ALTER TABLE `fav_user`
-  MODIFY `ID_fav_user` int(11) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `fav_user`
-  ADD CONSTRAINT `FK_IDfav_user` FOREIGN KEY (`ID_fav`) REFERENCES `favoritar` (`ID_fav`),
-  ADD CONSTRAINT `FK_IDusuario_fav` FOREIGN KEY (`ID_user`) REFERENCES `usuario` (`ID_usuario`);
+  ADD CONSTRAINT `FK_IDusuario_ender` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
