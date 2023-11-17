@@ -31,7 +31,7 @@ CREATE TABLE `anunciar` (
   `ID_anunciar` int NOT NULL,
   `ID_prod` int NOT NULL,
   `ID_usuario` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE `avaliacao` (
   `data_av` date NOT NULL,
   `hora_av` time NOT NULL,
   `comentario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ CREATE TABLE `avaliacao` (
 CREATE TABLE `cargo` (
   `ID_carco` int NOT NULL,
   `cargo` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `cargo`
@@ -78,7 +78,7 @@ CREATE TABLE `carrinho_prod` (
   `ID_usuario` int NOT NULL,
   `ID_prod` int NOT NULL,
   `qtd` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,7 @@ CREATE TABLE `carrinho_prod` (
 CREATE TABLE `categoria` (
   `ID_categ` int NOT NULL,
   `Nome_categ` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `categoria`
@@ -114,7 +114,7 @@ CREATE TABLE `contato` (
   `tel_fixo` varchar(15) DEFAULT NULL,
   `DDD` varchar(2) DEFAULT NULL,
   `tel_celular` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 -- --------------------------------------------------------
@@ -132,7 +132,7 @@ CREATE TABLE `endereco` (
   `cidade` varchar(255) NOT NULL,
   `num_casa` int NOT NULL,
   `complemento` varchar(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 -- --------------------------------------------------------
@@ -145,7 +145,7 @@ CREATE TABLE `favoritar` (
   `ID_fav` int NOT NULL,
   `ID_prod` int NOT NULL,
   `fav_valor` varchar(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -157,7 +157,7 @@ CREATE TABLE `fav_user` (
   `ID_fav_user` int NOT NULL,
   `ID_fav` int NOT NULL,
   `ID_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -172,7 +172,7 @@ CREATE TABLE `imagens` (
   `tamanho_imagem` varchar(25) NOT NULL,
   `tipo_imagem` varchar(10) NOT NULL,
   `caminho_imagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 -- --------------------------------------------------------
@@ -188,7 +188,7 @@ CREATE TABLE `imagens_prod` (
   `tamanho_imagem` varchar(25) NOT NULL,
   `tipo_imagem` varchar(10) NOT NULL,
   `caminho_imagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -203,8 +203,7 @@ CREATE TABLE `pedido` (
   `status_pedido` varchar(15) NOT NULL,
   `data_emissao` date NOT NULL,
   `data_entrega` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- --------------------------------------------------------
 
 --
@@ -215,7 +214,7 @@ CREATE TABLE `pedido_prod` (
   `ID_pedidoProd` int NOT NULL,
   `ID_pedido` int NOT NULL,
   `ID_prod` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -232,7 +231,7 @@ CREATE TABLE `produto` (
   `nome` varchar(255) NOT NULL,
   `descricao` varchar(1000) NOT NULL,
   `ativo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -243,7 +242,7 @@ CREATE TABLE `produto` (
 CREATE TABLE `recibo` (
   `ID_recibo` int NOT NULL,
   `ID_pedido` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -255,7 +254,7 @@ CREATE TABLE `user_ender` (
   `ID_userEnder` int NOT NULL,
   `ID_usuario` int NOT NULL,
   `ID_endereco` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `user_ender`
@@ -276,7 +275,7 @@ CREATE TABLE `usuario` (
   `email` varchar(100) NOT NULL,
   `CPF` varchar(14) NOT NULL,
   `cargo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Índices para tabelas despejadas
