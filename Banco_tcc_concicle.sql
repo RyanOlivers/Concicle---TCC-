@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Nov-2023 às 13:42
--- Versão do servidor: 8.0.32
--- versão do PHP: 8.1.2
+-- Tempo de geração: 29-Nov-2023 às 02:42
+-- Versão do servidor: 10.4.28-MariaDB
+-- versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `anunciar` (
-  `ID_anunciar` int NOT NULL,
-  `ID_prod` int NOT NULL,
-  `ID_usuario` int NOT NULL
+  `ID_anunciar` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL,
+  `ID_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -40,13 +40,21 @@ CREATE TABLE `anunciar` (
 --
 
 CREATE TABLE `avaliacao` (
-  `ID_avaliacao` int NOT NULL,
-  `ID_usuario` int NOT NULL,
-  `ID_prod` int NOT NULL,
+  `ID_avaliacao` int(11) NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL,
   `data_av` date NOT NULL,
   `hora_av` time NOT NULL,
   `comentario` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `avaliacao`
+--
+
+INSERT INTO `avaliacao` (`ID_avaliacao`, `ID_usuario`, `ID_prod`, `data_av`, `hora_av`, `comentario`) VALUES
+(1, 2, 4, '2023-11-28', '22:19:00', 'RF'),
+(2, 2, 4, '2023-11-28', '22:19:13', 'w3');
 
 -- --------------------------------------------------------
 
@@ -55,7 +63,7 @@ CREATE TABLE `avaliacao` (
 --
 
 CREATE TABLE `cargo` (
-  `ID_carco` int NOT NULL,
+  `ID_carco` int(11) NOT NULL,
   `cargo` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -74,11 +82,19 @@ INSERT INTO `cargo` (`ID_carco`, `cargo`) VALUES
 --
 
 CREATE TABLE `carrinho_prod` (
-  `ID_carrinho` int NOT NULL,
-  `ID_usuario` int NOT NULL,
-  `ID_prod` int NOT NULL,
-  `qtd` int NOT NULL
+  `ID_carrinho` int(11) NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL,
+  `qtd` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `carrinho_prod`
+--
+
+INSERT INTO `carrinho_prod` (`ID_carrinho`, `ID_usuario`, `ID_prod`, `qtd`) VALUES
+(13, 2, 4, 1),
+(14, 2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -87,7 +103,7 @@ CREATE TABLE `carrinho_prod` (
 --
 
 CREATE TABLE `categoria` (
-  `ID_categ` int NOT NULL,
+  `ID_categ` int(11) NOT NULL,
   `Nome_categ` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -109,13 +125,19 @@ INSERT INTO `categoria` (`ID_categ`, `Nome_categ`) VALUES
 --
 
 CREATE TABLE `contato` (
-  `ID_contato` int NOT NULL,
-  `ID_usuario` int NOT NULL,
+  `ID_contato` int(11) NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
   `tel_fixo` varchar(15) DEFAULT NULL,
   `DDD` varchar(2) DEFAULT NULL,
   `tel_celular` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `contato`
+--
+
+INSERT INTO `contato` (`ID_contato`, `ID_usuario`, `tel_fixo`, `DDD`, `tel_celular`) VALUES
+(2, 2, '', '11', '982652049');
 
 -- --------------------------------------------------------
 
@@ -124,16 +146,22 @@ CREATE TABLE `contato` (
 --
 
 CREATE TABLE `endereco` (
-  `ID_endereco` int NOT NULL,
+  `ID_endereco` int(11) NOT NULL,
   `CEP` varchar(10) NOT NULL,
   `UF` varchar(2) NOT NULL,
   `rua` varchar(255) NOT NULL,
   `bairro` varchar(255) NOT NULL,
   `cidade` varchar(255) NOT NULL,
-  `num_casa` int NOT NULL,
+  `num_casa` int(11) NOT NULL,
   `complemento` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `endereco`
+--
+
+INSERT INTO `endereco` (`ID_endereco`, `CEP`, `UF`, `rua`, `bairro`, `cidade`, `num_casa`, `complemento`) VALUES
+(2, '06602190', 'SP', 'Rua Odilon Correia Pires', 'Vila Eunice', 'Jandira', 94, 'N?A');
 
 -- --------------------------------------------------------
 
@@ -142,10 +170,18 @@ CREATE TABLE `endereco` (
 --
 
 CREATE TABLE `favoritar` (
-  `ID_fav` int NOT NULL,
-  `ID_prod` int NOT NULL,
+  `ID_fav` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL,
   `fav_valor` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `favoritar`
+--
+
+INSERT INTO `favoritar` (`ID_fav`, `ID_prod`, `fav_valor`) VALUES
+(3, 3, '2'),
+(4, 4, '2');
 
 -- --------------------------------------------------------
 
@@ -154,10 +190,32 @@ CREATE TABLE `favoritar` (
 --
 
 CREATE TABLE `fav_user` (
-  `ID_fav_user` int NOT NULL,
-  `ID_fav` int NOT NULL,
-  `ID_user` int NOT NULL
+  `ID_fav_user` int(11) NOT NULL,
+  `ID_fav` int(11) NOT NULL,
+  `ID_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `historico`
+--
+
+CREATE TABLE `historico` (
+  `ID_historico` int(11) NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL,
+  `qtd` int(11) NOT NULL,
+  `estado` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `historico`
+--
+
+INSERT INTO `historico` (`ID_historico`, `ID_usuario`, `ID_prod`, `qtd`, `estado`) VALUES
+(28, 2, 4, 1, 'Pagamento em Avaliação'),
+(29, 2, 3, 1, 'Pagamento em Avaliação');
 
 -- --------------------------------------------------------
 
@@ -166,14 +224,20 @@ CREATE TABLE `fav_user` (
 --
 
 CREATE TABLE `imagens` (
-  `ID_img` int NOT NULL,
-  `ID_user` int NOT NULL,
+  `ID_img` int(11) NOT NULL,
+  `ID_user` int(11) NOT NULL,
   `nome_imagem` varchar(25) NOT NULL,
   `tamanho_imagem` varchar(25) NOT NULL,
   `tipo_imagem` varchar(10) NOT NULL,
   `caminho_imagem` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Extraindo dados da tabela `imagens`
+--
+
+INSERT INTO `imagens` (`ID_img`, `ID_user`, `nome_imagem`, `tamanho_imagem`, `tipo_imagem`, `caminho_imagem`) VALUES
+(2, 2, 'philip2', '909615', '.jpg', 'uploads/philip20.jpg');
 
 -- --------------------------------------------------------
 
@@ -182,13 +246,23 @@ CREATE TABLE `imagens` (
 --
 
 CREATE TABLE `imagens_prod` (
-  `ID_img` int NOT NULL,
-  `ID_prod` int NOT NULL,
+  `ID_img` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL,
   `nome_imagem` varchar(25) NOT NULL,
   `tamanho_imagem` varchar(25) NOT NULL,
   `tipo_imagem` varchar(10) NOT NULL,
   `caminho_imagem` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `imagens_prod`
+--
+
+INSERT INTO `imagens_prod` (`ID_img`, `ID_prod`, `nome_imagem`, `tamanho_imagem`, `tipo_imagem`, `caminho_imagem`) VALUES
+(3, 3, '123', '111649', 'jpeg', 'uploads-prod/1230jpeg'),
+(4, 4, 'dsad', '37550', '.jpg', 'uploads-prod/dsad0.jpg'),
+(5, 4, 'dsad', '449218', '.jpg', 'uploads-prod/dsad1.jpg'),
+(6, 4, 'dsad', '12073489', '.png', 'uploads-prod/dsad2.png');
 
 -- --------------------------------------------------------
 
@@ -197,13 +271,14 @@ CREATE TABLE `imagens_prod` (
 --
 
 CREATE TABLE `pedido` (
-  `ID_pedido` int NOT NULL,
-  `ID_userEnder` int NOT NULL,
+  `ID_pedido` int(11) NOT NULL,
+  `ID_userEnder` int(11) NOT NULL,
   `preco` decimal(10,2) NOT NULL,
   `status_pedido` varchar(15) NOT NULL,
   `data_emissao` date NOT NULL,
   `data_entrega` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -211,9 +286,9 @@ CREATE TABLE `pedido` (
 --
 
 CREATE TABLE `pedido_prod` (
-  `ID_pedidoProd` int NOT NULL,
-  `ID_pedido` int NOT NULL,
-  `ID_prod` int NOT NULL
+  `ID_pedidoProd` int(11) NOT NULL,
+  `ID_pedido` int(11) NOT NULL,
+  `ID_prod` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -223,15 +298,23 @@ CREATE TABLE `pedido_prod` (
 --
 
 CREATE TABLE `produto` (
-  `ID_prod` int NOT NULL,
-  `ID_categ` int NOT NULL,
-  `ID_usuario` int NOT NULL,
-  `quantidade` int NOT NULL,
+  `ID_prod` int(11) NOT NULL,
+  `ID_categ` int(11) NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL,
   `preco` decimal(10,2) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `descricao` varchar(1000) NOT NULL,
-  `ativo` int NOT NULL
+  `ativo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `produto`
+--
+
+INSERT INTO `produto` (`ID_prod`, `ID_categ`, `ID_usuario`, `quantidade`, `preco`, `nome`, `descricao`, `ativo`) VALUES
+(3, 3, 2, 123, 123.00, '123', '123', 1),
+(4, 3, 2, 123, 123.00, 'dsad', 'asdasdsa', 1);
 
 -- --------------------------------------------------------
 
@@ -240,8 +323,8 @@ CREATE TABLE `produto` (
 --
 
 CREATE TABLE `recibo` (
-  `ID_recibo` int NOT NULL,
-  `ID_pedido` int NOT NULL
+  `ID_recibo` int(11) NOT NULL,
+  `ID_pedido` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -251,15 +334,17 @@ CREATE TABLE `recibo` (
 --
 
 CREATE TABLE `user_ender` (
-  `ID_userEnder` int NOT NULL,
-  `ID_usuario` int NOT NULL,
-  `ID_endereco` int NOT NULL
+  `ID_userEnder` int(11) NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
+  `ID_endereco` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `user_ender`
 --
 
+INSERT INTO `user_ender` (`ID_userEnder`, `ID_usuario`, `ID_endereco`) VALUES
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -268,14 +353,21 @@ CREATE TABLE `user_ender` (
 --
 
 CREATE TABLE `usuario` (
-  `ID_usuario` int NOT NULL,
+  `ID_usuario` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `sobrenome` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `CPF` varchar(14) NOT NULL,
-  `cargo` int NOT NULL
+  `cargo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`ID_usuario`, `nome`, `sobrenome`, `senha`, `email`, `CPF`, `cargo`) VALUES
+(2, 'philip', 'viana122', '$2y$10$M81.a5pWb.fuqF.VDxq8SOJ0/nQJKcDUkwP1IVWSVADq7NiRIfLcy', 'Philipviana122@gmail.com', '54937283898', 2);
 
 --
 -- Índices para tabelas despejadas
@@ -346,6 +438,14 @@ ALTER TABLE `fav_user`
   ADD KEY `FK_IDusuario` (`ID_user`);
 
 --
+-- Índices para tabela `historico`
+--
+ALTER TABLE `historico`
+  ADD PRIMARY KEY (`ID_historico`),
+  ADD KEY `FK_IDuser_historico` (`ID_usuario`),
+  ADD KEY `FK_IDprod_historico` (`ID_prod`);
+
+--
 -- Índices para tabela `imagens`
 --
 ALTER TABLE `imagens`
@@ -411,103 +511,109 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `anunciar`
 --
 ALTER TABLE `anunciar`
-  MODIFY `ID_anunciar` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_anunciar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  MODIFY `ID_avaliacao` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_avaliacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `cargo`
 --
 ALTER TABLE `cargo`
-  MODIFY `ID_carco` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_carco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `carrinho_prod`
 --
 ALTER TABLE `carrinho_prod`
-  MODIFY `ID_carrinho` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_carrinho` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `ID_categ` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_categ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `contato`
 --
 ALTER TABLE `contato`
-  MODIFY `ID_contato` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_contato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `ID_endereco` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_endereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `favoritar`
 --
 ALTER TABLE `favoritar`
-  MODIFY `ID_fav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_fav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `fav_user`
 --
 ALTER TABLE `fav_user`
-  MODIFY `ID_fav_user` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_fav_user` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `historico`
+--
+ALTER TABLE `historico`
+  MODIFY `ID_historico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de tabela `imagens`
 --
 ALTER TABLE `imagens`
-  MODIFY `ID_img` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `imagens_prod`
 --
 ALTER TABLE `imagens_prod`
-  MODIFY `ID_img` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `ID_pedido` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_pedido` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `pedido_prod`
 --
 ALTER TABLE `pedido_prod`
-  MODIFY `ID_pedidoProd` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_pedidoProd` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `ID_prod` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_prod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `recibo`
 --
 ALTER TABLE `recibo`
-  MODIFY `ID_recibo` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_recibo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `user_ender`
 --
 ALTER TABLE `user_ender`
-  MODIFY `ID_userEnder` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_userEnder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para despejos de tabelas
@@ -532,7 +638,9 @@ ALTER TABLE `avaliacao`
 --
 ALTER TABLE `carrinho_prod`
   ADD CONSTRAINT `FK_IDprod_carrinho` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`),
-  ADD CONSTRAINT `FK_IDuser_carrinho` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
+  ADD CONSTRAINT `FK_IDprod_historico` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`),
+  ADD CONSTRAINT `FK_IDuser_carrinho` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`),
+  ADD CONSTRAINT `FK_IDuser_historico` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
 
 --
 -- Limitadores para a tabela `contato`
@@ -552,6 +660,13 @@ ALTER TABLE `favoritar`
 ALTER TABLE `fav_user`
   ADD CONSTRAINT `FK_IDfav_user` FOREIGN KEY (`ID_fav`) REFERENCES `favoritar` (`ID_fav`),
   ADD CONSTRAINT `FK_IDusuario_fav` FOREIGN KEY (`ID_user`) REFERENCES `usuario` (`ID_usuario`);
+
+--
+-- Limitadores para a tabela `historico`
+--
+ALTER TABLE `historico`
+  ADD CONSTRAINT `FK_IDhistorico_prod` FOREIGN KEY (`ID_prod`) REFERENCES `produto` (`ID_prod`),
+  ADD CONSTRAINT `FK_IDhistorico_user` FOREIGN KEY (`ID_usuario`) REFERENCES `usuario` (`ID_usuario`);
 
 --
 -- Limitadores para a tabela `imagens`
